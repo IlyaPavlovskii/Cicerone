@@ -29,7 +29,7 @@ public class Router extends BaseRouter {
      * @param screenKey screen key
      */
     public void navigateTo(String screenKey) {
-        navigateTo(screenKey, null);
+        executeCommand(new Forward(screenKey));
     }
 
     /**
@@ -38,7 +38,7 @@ public class Router extends BaseRouter {
      * @param screenKey screen key
      * @param data      initialisation parameters for the new screen
      */
-    public void navigateTo(String screenKey, Object data) {
+    public void navigateTo(String screenKey, Object... data) {
         executeCommand(new Forward(screenKey, data));
     }
 
@@ -49,7 +49,8 @@ public class Router extends BaseRouter {
      * @param screenKey screen key
      */
     public void newScreenChain(String screenKey) {
-        newScreenChain(screenKey, null);
+        executeCommand(new BackTo(null));
+        executeCommand(new Forward(screenKey));
     }
 
     /**
@@ -59,7 +60,7 @@ public class Router extends BaseRouter {
      * @param screenKey screen key
      * @param data      initialisation parameters for the new screen
      */
-    public void newScreenChain(String screenKey, Object data) {
+    public void newScreenChain(String screenKey, Object... data) {
         executeCommand(new BackTo(null));
         executeCommand(new Forward(screenKey, data));
     }
@@ -70,7 +71,8 @@ public class Router extends BaseRouter {
      * @param screenKey screen key
      */
     public void newRootScreen(String screenKey) {
-        newRootScreen(screenKey, null);
+        executeCommand(new BackTo(null));
+        executeCommand(new Replace(screenKey));
     }
 
     /**
@@ -79,7 +81,7 @@ public class Router extends BaseRouter {
      * @param screenKey screen key
      * @param data      initialisation parameters for the root
      */
-    public void newRootScreen(String screenKey, Object data) {
+    public void newRootScreen(String screenKey, Object... data) {
         executeCommand(new BackTo(null));
         executeCommand(new Replace(screenKey, data));
     }
@@ -93,7 +95,7 @@ public class Router extends BaseRouter {
      * @param screenKey screen key
      */
     public void replaceScreen(String screenKey) {
-        replaceScreen(screenKey, null);
+        executeCommand(new Replace(screenKey));
     }
 
     /**
@@ -105,7 +107,7 @@ public class Router extends BaseRouter {
      * @param screenKey screen key
      * @param data      initialisation parameters for the new screen
      */
-    public void replaceScreen(String screenKey, Object data) {
+    public void replaceScreen(String screenKey, Object... data) {
         executeCommand(new Replace(screenKey, data));
     }
 
@@ -118,6 +120,18 @@ public class Router extends BaseRouter {
      */
     public void backTo(String screenKey) {
         executeCommand(new BackTo(screenKey));
+    }
+
+    /**
+     * Return back to the needed screen from the chain.
+     * Behavior in the case when no needed screens found depends on
+     * the processing of the {@link BackTo} command in a {@link Navigator} implementation.
+     *
+     * @param screenKey screen key
+     * @param data pass parameters for old screen
+     */
+    public void backTo(String screenKey, Object... data){
+        executeCommand(new BackTo(screenKey,data));
     }
 
     /**

@@ -116,7 +116,7 @@ public abstract class SupportFragmentNavigator implements Navigator {
      * @param data      initialization data
      * @return instantiated fragment for the passed screen key
      */
-    protected abstract Fragment createFragment(String screenKey, Object data);
+    protected abstract Fragment createFragment(String screenKey, Object... data);
 
     /**
      * Shows system message.

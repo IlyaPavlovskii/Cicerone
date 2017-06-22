@@ -11,3 +11,7 @@ local.properties
 
 # Mac OS
 .DS_Store
+/.idea/
+/.gradle/
+/library/build/
+/library/stub-android/build/

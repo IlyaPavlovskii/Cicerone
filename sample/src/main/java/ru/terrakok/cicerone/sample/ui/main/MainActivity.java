@@ -43,8 +43,8 @@ public class MainActivity extends MvpAppCompatActivity {
 
     private Navigator navigator = new SupportFragmentNavigator(getSupportFragmentManager(), R.id.main_container) {
         @Override
-        protected Fragment createFragment(String screenKey, Object data) {
-            return SampleFragment.getNewInstance((int) data);
+        protected Fragment createFragment(String screenKey, Object... data) {
+            return SampleFragment.getNewInstance((int) data[0]);
         }
 
         @Override
@@ -62,6 +62,7 @@ public class MainActivity extends MvpAppCompatActivity {
             super.applyCommand(command);
             updateScreenNames(command);
         }
+
     };
 
     @Override
@@ -116,10 +117,10 @@ public class MainActivity extends MvpAppCompatActivity {
                 screenNames.remove(screenNames.size() - 1);
             }
         } else if (command instanceof Forward) {
-            int i = (int) ((Forward) command).getTransitionData();
+            int i = (int) ((Forward) command).getTransitionData()[0];
             screenNames.add(i + "");
         } else if (command instanceof Replace) {
-            int i = (int) ((Replace) command).getTransitionData();
+            int i = (int) ((Replace) command).getTransitionData()[0];
             if (screenNames.size() > 0) {
                 screenNames.remove(screenNames.size() - 1);
             }
