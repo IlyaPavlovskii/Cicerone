@@ -10,15 +10,15 @@ package ru.terrakok.cicerone.commands;
  */
 public class Forward implements Command {
     private String screenKey;
-    private Object transitionData;
+    private Object[] transitionData;
 
     /**
      * Creates a {@link Forward} navigation command.
      *
      * @param screenKey      screen key
-     * @param transitionData initial data
+     * @param transitionData initial array data
      */
-    public Forward(String screenKey, Object transitionData) {
+    public Forward(String screenKey, Object... transitionData) {
         this.screenKey = screenKey;
         this.transitionData = transitionData;
     }
@@ -27,7 +27,7 @@ public class Forward implements Command {
         return screenKey;
     }
 
-    public Object getTransitionData() {
+    public Object[] getTransitionData() {
         return transitionData;
     }
 }

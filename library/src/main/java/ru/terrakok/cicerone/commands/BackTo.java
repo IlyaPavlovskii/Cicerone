@@ -14,6 +14,7 @@ import ru.terrakok.cicerone.Navigator;
  */
 public class BackTo implements Command {
     private String screenKey;
+    private Object[] transitionData;
 
     /**
      * Creates a {@link BackTo} navigation command.
@@ -24,7 +25,22 @@ public class BackTo implements Command {
         this.screenKey = screenKey;
     }
 
+    /**
+     * Creates a {@link BackTo} navigation command.
+     *
+     * @param screenKey      screen key
+     * @param transitionArray initial array data
+     */
+    public BackTo(String screenKey, Object... transitionArray) {
+        this.screenKey = screenKey;
+        this.transitionData = transitionArray;
+    }
+
     public String getScreenKey() {
         return screenKey;
+    }
+
+    public Object[] getTransitionData() {
+        return transitionData;
     }
 }

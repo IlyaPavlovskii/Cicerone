@@ -89,7 +89,7 @@ public class TabContainerFragment extends Fragment implements RouterProvider, Ba
             navigator = new SupportAppNavigator(getActivity(), getChildFragmentManager(), R.id.ftc_container) {
 
                 @Override
-                protected Intent createActivityIntent(String screenKey, Object data) {
+                protected Intent createActivityIntent(String screenKey, Object... data) {
                     if (screenKey.equals(Screens.GITHUB_SCREEN)) {
                         return new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/terrakok/Cicerone"));
                     }
@@ -97,9 +97,9 @@ public class TabContainerFragment extends Fragment implements RouterProvider, Ba
                 }
 
                 @Override
-                protected Fragment createFragment(String screenKey, Object data) {
+                protected Fragment createFragment(String screenKey, Object... data) {
                     if (screenKey.equals(Screens.FORWARD_SCREEN)) {
-                        return ForwardFragment.getNewInstance(getContainerName(), (int) data);
+                        return ForwardFragment.getNewInstance(getContainerName(), (int) data[0]);
                     }
                     return null;
                 }

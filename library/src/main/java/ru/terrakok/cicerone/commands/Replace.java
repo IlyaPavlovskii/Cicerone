@@ -10,24 +10,25 @@ package ru.terrakok.cicerone.commands;
  */
 public class Replace implements Command {
     private String screenKey;
-    private Object transitionData;
+    private Object[] transitionData;
 
     /**
      * Creates a {@link Replace} navigation command.
      *
      * @param screenKey      screen key
-     * @param transitionData initial data
+     * @param transitionArray initial array data
      */
-    public Replace(String screenKey, Object transitionData) {
+    public Replace(String screenKey, Object... transitionArray) {
         this.screenKey = screenKey;
-        this.transitionData = transitionData;
+        this.transitionData = transitionArray;
     }
 
     public String getScreenKey() {
         return screenKey;
     }
 
-    public Object getTransitionData() {
+    public Object[] getTransitionData() {
         return transitionData;
     }
+
 }

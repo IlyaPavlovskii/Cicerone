@@ -106,10 +106,7 @@ public abstract class SupportFragmentNavigator implements Navigator {
     }
 
     private void backToRoot() {
-        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
-            fragmentManager.popBackStack();
-        }
-        fragmentManager.executePendingTransactions();
+        fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     /**
@@ -119,7 +116,7 @@ public abstract class SupportFragmentNavigator implements Navigator {
      * @param data      initialization data
      * @return instantiated fragment for the passed screen key
      */
-    protected abstract Fragment createFragment(String screenKey, Object data);
+    protected abstract Fragment createFragment(String screenKey, Object... data);
 
     /**
      * Shows system message.

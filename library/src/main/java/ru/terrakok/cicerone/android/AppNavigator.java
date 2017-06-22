@@ -72,7 +72,7 @@ public abstract class AppNavigator extends FragmentNavigator {
      * @param data      initialization data, can be null
      * @return intent to start Activity for the passed screen key
      */
-    protected abstract Intent createActivityIntent(String screenKey, Object data);
+    protected abstract Intent createActivityIntent(String screenKey, Object[] data);
 
     @Override
     protected void showSystemMessage(String message) {
