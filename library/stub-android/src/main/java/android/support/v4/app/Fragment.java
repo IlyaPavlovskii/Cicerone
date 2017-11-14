@@ -35,4 +35,8 @@ public class Fragment {
 	public final FragmentActivity getActivity() {
 		throw new RuntimeException("Stub!");
 	}
+
+	final public String getTag() {
+		throw new RuntimeException("Stub!");
+	}
 }

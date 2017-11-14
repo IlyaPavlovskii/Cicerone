@@ -10,6 +10,10 @@ public class FragmentTransaction {
         throw new RuntimeException("Stub!");
     }
 
+    public FragmentTransaction replace(int containerViewId, Fragment fragment, String tag) {
+        throw new RuntimeException("Stub!");
+    }
+
     public FragmentTransaction addToBackStack(String name) {
         throw new RuntimeException("Stub!");
     }
