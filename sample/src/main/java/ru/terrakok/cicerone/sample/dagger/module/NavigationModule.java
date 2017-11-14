@@ -7,6 +7,7 @@ import dagger.Provides;
 import ru.terrakok.cicerone.Cicerone;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.Router;
+import ru.terrakok.cicerone.sample.navigator.ContainerNavigator;
 
 /**
  * Created by terrakok 24.11.16
@@ -30,5 +31,11 @@ public class NavigationModule {
     @Singleton
     NavigatorHolder provideNavigatorHolder() {
         return cicerone.getNavigatorHolder();
+    }
+
+    @Provides
+    @Singleton
+    ContainerNavigator provideContainerNavigator(){
+        return new ContainerNavigator();
     }
 }

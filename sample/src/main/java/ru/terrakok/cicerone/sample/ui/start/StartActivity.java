@@ -20,6 +20,7 @@ import ru.terrakok.cicerone.commands.Command;
 import ru.terrakok.cicerone.commands.Forward;
 import ru.terrakok.cicerone.commands.Replace;
 import ru.terrakok.cicerone.commands.SystemMessage;
+import ru.terrakok.cicerone.sample.container.ContainerActivity;
 import ru.terrakok.cicerone.sample.R;
 import ru.terrakok.cicerone.sample.SampleApplication;
 import ru.terrakok.cicerone.sample.Screens;
@@ -68,6 +69,12 @@ public class StartActivity extends MvpAppCompatActivity implements StartActivity
                 presenter.onMultiPressed();
             }
         });
+        findViewById(R.id.containers_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onContainerPressed();
+            }
+        });
     }
 
     @Override
@@ -113,6 +120,9 @@ public class StartActivity extends MvpAppCompatActivity implements StartActivity
                     break;
                 case Screens.BOTTOM_NAVIGATION_ACTIVITY_SCREEN:
                     startActivity(new Intent(StartActivity.this, BottomNavigationActivity.class));
+                    break;
+                case Screens.CONTAINER_ACTIVITY_SCREEN:
+                    startActivity(new Intent(StartActivity.this, ContainerActivity.class));
                     break;
                 default:
                     Log.e("Cicerone", "Unknown screen: " + command.getScreenKey());
