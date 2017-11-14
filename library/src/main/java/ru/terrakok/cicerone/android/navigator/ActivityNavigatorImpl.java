@@ -31,7 +31,9 @@ import ru.terrakok.cicerone.commands.SystemMessage;
  * with <br>
  * ===================================================================================<br>
  */
-public abstract class ActivityNavigatorImpl extends BaseNavigator implements IActivityNavigator {
+public abstract class ActivityNavigatorImpl
+        extends BaseNavigator
+        implements IActivityNavigator, ISystemMessageNavigator {
 
     //======================================================
     //------------------------Fields------------------------
@@ -39,7 +41,7 @@ public abstract class ActivityNavigatorImpl extends BaseNavigator implements IAc
     @Nullable
     protected Activity mActivity;
     @Nullable
-    protected SystemMessageActions mSystemMessageActions;
+    protected ISystemMessageActions mSystemMessageActions;
 
     //======================================================
     //---------------------Constructors---------------------
@@ -51,7 +53,7 @@ public abstract class ActivityNavigatorImpl extends BaseNavigator implements IAc
         super(parentNavigator);
     }
 
-    public ActivityNavigatorImpl(@Nullable Activity activity, @Nullable SystemMessageActions systemMessageActions) {
+    public ActivityNavigatorImpl(@Nullable Activity activity, @Nullable ISystemMessageActions systemMessageActions) {
         mActivity = activity;
         mSystemMessageActions = systemMessageActions;
     }
@@ -65,9 +67,8 @@ public abstract class ActivityNavigatorImpl extends BaseNavigator implements IAc
 
     @Nullable
     protected abstract IActivityContainer getActivityContainer(String commandKey, Object... transitionData);
-
     //======================================================
-    //--------------------Public methods--------------------
+    //-------------------Override methods-------------------
     //======================================================
     @Nullable
     @Override
@@ -75,9 +76,16 @@ public abstract class ActivityNavigatorImpl extends BaseNavigator implements IAc
         return mActivity;
     }
 
-    //======================================================
-    //-------------------Override methods-------------------
-    //======================================================
+    @Override
+    public void setSystemMessageActions(@Nullable ISystemMessageActions systemMessageActions) {
+        mSystemMessageActions = systemMessageActions;
+    }
+
+    @Override
+    public void setActivity(@Nullable Activity activity) {
+        mActivity = activity;
+    }
+
     @Override
     protected void systemMessage(@NonNull SystemMessage command) {
         if( mSystemMessageActions != null ){
@@ -144,7 +152,7 @@ public abstract class ActivityNavigatorImpl extends BaseNavigator implements IAc
     //-------------------Protected methods------------------
     //======================================================
     protected boolean isEmpty(@Nullable String string){
-        return string == null || !string.equals("");
+        return string == null || string.equals("");
     }
 
     protected boolean isEmptyData(Object... data){

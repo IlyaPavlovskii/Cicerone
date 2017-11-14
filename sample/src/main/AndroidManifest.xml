@@ -20,5 +20,9 @@
 
         <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".ui.bottom.BottomNavigationActivity"/>
+
+        <activity android:name=".container.ContainerActivity"/>
+        <activity android:name=".container.SampleContainerActivity"/>
+
     </application>
 </manifest>

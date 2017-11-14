@@ -16,6 +16,6 @@ import android.support.annotation.Nullable;
  * {@link java.awt.Dialog} or custom solution<br>
  * ===================================================================================<br>
  */
-public interface SystemMessageActions {
+public interface ISystemMessageActions {
     void showMessage(@NonNull String message);
 }

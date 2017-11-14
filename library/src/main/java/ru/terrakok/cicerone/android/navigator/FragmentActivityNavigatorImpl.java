@@ -1,5 +1,6 @@
 package ru.terrakok.cicerone.android.navigator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.Fragment;
@@ -29,7 +30,9 @@ import ru.terrakok.cicerone.commands.SystemMessage;
  * Project name: Cicerone<br>
  * ===================================================================================<br>
  */
-public abstract class FragmentActivityNavigatorImpl extends BaseNavigator implements IActivityNavigator {
+public abstract class FragmentActivityNavigatorImpl
+        extends BaseNavigator
+        implements IActivityNavigator, ISystemMessageNavigator {
 
     //======================================================
     //------------------------Fields------------------------
@@ -37,7 +40,7 @@ public abstract class FragmentActivityNavigatorImpl extends BaseNavigator implem
     @Nullable
     protected FragmentActivity mActivity;
     @Nullable
-    protected SystemMessageActions mSystemMessageActions;
+    protected ISystemMessageActions mSystemMessageActions;
 
     //======================================================
     //---------------------Constructors---------------------
@@ -49,7 +52,7 @@ public abstract class FragmentActivityNavigatorImpl extends BaseNavigator implem
         super(parentNavigator);
     }
 
-    public FragmentActivityNavigatorImpl(@Nullable FragmentActivity activity, @Nullable SystemMessageActions systemMessageActions) {
+    public FragmentActivityNavigatorImpl(@Nullable FragmentActivity activity, @Nullable ISystemMessageActions systemMessageActions) {
         mActivity = activity;
         mSystemMessageActions = systemMessageActions;
     }
@@ -63,17 +66,31 @@ public abstract class FragmentActivityNavigatorImpl extends BaseNavigator implem
     @Nullable
     protected abstract IActivityContainer getActivityContainer(String commandKey, Object... transitionData);
 
-    //======================================================
-    //--------------------Public methods--------------------
-    //======================================================
-    @Nullable
-    public FragmentActivity getActivity() {
-        return mActivity;
-    }
 
     //======================================================
     //-------------------Override methods-------------------
     //======================================================
+    @Override
+    public void setSystemMessageActions(@Nullable ISystemMessageActions systemMessageActions) {
+        mSystemMessageActions = systemMessageActions;
+    }
+
+    @Override
+    public Activity getActivity() {
+        return mActivity;
+    }
+
+    @Override
+    public void setActivity(@Nullable Activity activity) {
+        if( activity instanceof FragmentActivity ){
+            mActivity = (FragmentActivity) activity;
+        } else {
+            throw new IllegalArgumentException("Activity must be extends of {@link android.support.v4.app.FragmentActivity}." +
+                    "If you want to use {@link android.app.Activity} extension, look on the " +
+                    "{@link ru.terrakok.cicerone.android.navigator.ActivityNavigatorImpl}");
+        }
+    }
+
     @Override
     protected void systemMessage(@NonNull SystemMessage command) {
         if( mSystemMessageActions != null ){

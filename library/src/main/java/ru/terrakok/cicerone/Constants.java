@@ -14,11 +14,11 @@ package ru.terrakok.cicerone;
  */
 public class Constants {
 
-    public final static class FragmentKeys {
+    public static class FragmentKeys {
         public static final String PREFIX = "fragment_";
     }
 
-    public final static class ActivityKeys {
+    public static class ActivityKeys {
         public static final String PREFIX = "activity_";
     }
 }

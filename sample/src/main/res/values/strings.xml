@@ -7,4 +7,5 @@
     <string name="tab_android">Android</string>
     <string name="tab_bug">Bug</string>
     <string name="tab_dog">Dog</string>
+    <string name="containers">Containers navigation</string>
 </resources>

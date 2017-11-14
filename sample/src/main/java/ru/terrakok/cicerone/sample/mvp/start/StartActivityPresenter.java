@@ -26,4 +26,8 @@ public class StartActivityPresenter extends MvpPresenter<StartActivityView> {
     public void onBackPressed() {
         router.exit();
     }
+
+    public void onContainerPressed() {
+        router.navigateTo(Screens.CONTAINER_ACTIVITY_SCREEN);
+    }
 }

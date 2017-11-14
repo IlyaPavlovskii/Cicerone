@@ -18,4 +18,5 @@ public class Screens {
 
     public static final String FORWARD_SCREEN = "forward screen";
     public static final String GITHUB_SCREEN = "github screen";
+    public static final String CONTAINER_ACTIVITY_SCREEN = "container";
 }
