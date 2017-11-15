@@ -101,7 +101,7 @@ public abstract class ActivityNavigatorImpl
     }
     @Override
     protected void replace(@NonNull Replace command) {
-        if( isEmpty(command.getScreenKey()) ){
+        if( !isEmpty(command.getScreenKey()) ){
             if( command.getScreenKey().contains(Constants.FragmentKeys.PREFIX)){
                 replaceFragment( command );
             } else if( command.getScreenKey().contains(Constants.ActivityKeys.PREFIX)){
@@ -151,10 +151,6 @@ public abstract class ActivityNavigatorImpl
     //======================================================
     //-------------------Protected methods------------------
     //======================================================
-    protected boolean isEmpty(@Nullable String string){
-        return string == null || string.equals("");
-    }
-
     protected boolean isEmptyData(Object... data){
         return data == null || data.length < 1;
     }
