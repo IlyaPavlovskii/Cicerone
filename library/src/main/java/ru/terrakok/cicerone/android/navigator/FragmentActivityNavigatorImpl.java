@@ -82,6 +82,10 @@ public abstract class FragmentActivityNavigatorImpl
 
     @Override
     public void setActivity(@Nullable Activity activity) {
+        if( activity == null ){
+            mActivity = null;
+            return;
+        }
         if( activity instanceof FragmentActivity ){
             mActivity = (FragmentActivity) activity;
         } else {
