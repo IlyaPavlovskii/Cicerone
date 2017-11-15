@@ -68,7 +68,7 @@ public abstract class BaseNavigator implements Navigator {
     //======================================================
     //-------------------Protected methods------------------
     //======================================================
-    protected boolean isEmpty(@Nullable String string){
+    boolean isEmpty(@Nullable String string){
         return string == null || string.equals("");
     }
 
