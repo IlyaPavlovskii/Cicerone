@@ -15,6 +15,7 @@ import ru.terrakok.cicerone.android.container.IActivityContainer;
 import ru.terrakok.cicerone.android.container.IFragmentContainer;
 import ru.terrakok.cicerone.commands.BackTo;
 import ru.terrakok.cicerone.commands.Forward;
+import ru.terrakok.cicerone.commands.NewRoot;
 import ru.terrakok.cicerone.commands.Replace;
 import ru.terrakok.cicerone.commands.SystemMessage;
 
@@ -118,7 +119,7 @@ public abstract class ActivityNavigatorImpl
             String key = command.getScreenKey();
 
             if (key == null) {
-                backToRoot();
+                backToRootFragment();
             } else if( key.contains( Constants.FragmentKeys.PREFIX ) ){
                 boolean hasScreen = false;
                 for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
@@ -129,7 +130,7 @@ public abstract class ActivityNavigatorImpl
                     }
                 }
                 if (!hasScreen) {
-                    backToRoot();
+                    backToRootFragment();
                 }
             } else if( key.contains( Constants.ActivityKeys.PREFIX ) ){
                 backToActivity(command);
@@ -145,6 +146,18 @@ public abstract class ActivityNavigatorImpl
             } else if( command.getScreenKey().contains(Constants.ActivityKeys.PREFIX)){
                 forwardActivity(command);
             }
+        }
+    }
+
+
+
+    @Override
+    protected void newRoot(NewRoot command) {
+        if (command.getScreenKey().contains(Constants.FragmentKeys.PREFIX)) {
+            backToRootFragment();
+            forwardFragment( command );
+        } else if( command.getScreenKey().contains(Constants.ActivityKeys.PREFIX)) {
+            newRootActivity( command );
         }
     }
 
@@ -248,7 +261,7 @@ public abstract class ActivityNavigatorImpl
         }
     }
 
-    protected void backToRoot() {
+    protected void backToRootFragment() {
         if( mActivity != null ){
             FragmentManager fragmentManager = mActivity.getFragmentManager();
             final int count = fragmentManager.getBackStackEntryCount();
@@ -259,21 +272,31 @@ public abstract class ActivityNavigatorImpl
         }
     }
 
-
-
     protected void backToActivity(BackTo command) {
         if(getActivity()!= null) {
             IActivityContainer container = getActivityContainer( command.getScreenKey(), command.getTransitionData());
             if( container != null  ){
                 Intent intent = container.getIntent();
                 intent.setAction("backToFrom:"+getActivity().getLocalClassName());
-                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 getActivity().startActivity(intent);
                 getActivity().finish();
             }
         }
     }
 
+    protected void newRootActivity(NewRoot command){
+        if(getActivity()!= null) {
+            IActivityContainer container = getActivityContainer( command.getScreenKey(), command.getTransitionData());
+            if( container != null  ){
+                Intent intent = container.getIntent();
+                intent.setAction("newRootActivity:"+getActivity().getLocalClassName());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                getActivity().finish();
+                getActivity().startActivity(intent);
+            }
+        }
+    }
 }
 

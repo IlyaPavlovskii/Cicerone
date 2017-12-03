@@ -1,8 +1,11 @@
 package ru.terrakok.cicerone.sample.container;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -26,8 +29,11 @@ import ru.terrakok.cicerone.sample.navigator.ContainerNavigator;
  */
 public class ContainerActivity extends BaseActivity {
 
+    private static final String TAG = ContainerActivity.class.getSimpleName();
     @Inject
     ContainerNavigator mContainerNavigator;
+
+    private static int sIndex = 0;
 
     @Override
     protected void injectDependencies() {
@@ -45,13 +51,30 @@ public class ContainerActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
+        ((TextView)findViewById(R.id.vTvIndex)).setText("Index: " + (++sIndex));
+        Log.d(TAG, "onCreate: " + sIndex);
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "onDestroy: " + sIndex);
+        --sIndex;
+        super.onDestroy();
     }
 
     public void onSampleClick(View view) {
-        mRouter.navigateTo(Constants.ActivityKeys.SAMPLE_ACTIVITY);
+        mRouter.navigateTo(Constants.ActivityKeys.SAMPLE);
     }
 
     public void onSampleParamsClick(View view) {
-        mRouter.navigateTo(Constants.ActivityKeys.SAMPLE_ACTIVITY, "some params");
+        mRouter.navigateTo(Constants.ActivityKeys.SAMPLE, "some params");
+    }
+
+    public void onForwardContainerClick(View view) {
+        mRouter.navigateTo(Constants.ActivityKeys.CONTAINER);
+    }
+
+    public void onNewRootClick(View view) {
+        mRouter.newRootScreen(Constants.ActivityKeys.CONTAINER);
     }
 }

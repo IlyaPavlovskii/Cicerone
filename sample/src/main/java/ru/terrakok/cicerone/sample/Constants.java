@@ -9,17 +9,16 @@ package ru.terrakok.cicerone.sample;
  * Time: 17:30<br>
  * Project name: Cicerone<br>
  * ===================================================================================<br>
- * //TODO Add description<br>
- * ===================================================================================<br>
  */
 public class Constants {
 
     public static class ActivityKeys extends ru.terrakok.cicerone.Constants.ActivityKeys{
-        public static final String SAMPLE_ACTIVITY = PREFIX + "sample";
+        public static final String SAMPLE = PREFIX + "sample";
+        public static final String CONTAINER = PREFIX + "container";
     }
 
     public static class FragmentKeys extends ru.terrakok.cicerone.Constants.FragmentKeys{
-        //public static final String SAMPLE_ACTIVITY = PREFIX + "sample";
+        //public static final String SAMPLE = PREFIX + "sample";
     }
 
     public static class IntentKeys {

@@ -3,6 +3,7 @@ package ru.terrakok.cicerone;
 import ru.terrakok.cicerone.commands.Back;
 import ru.terrakok.cicerone.commands.BackTo;
 import ru.terrakok.cicerone.commands.Forward;
+import ru.terrakok.cicerone.commands.NewRoot;
 import ru.terrakok.cicerone.commands.Replace;
 import ru.terrakok.cicerone.commands.SystemMessage;
 
@@ -71,8 +72,7 @@ public class Router extends BaseRouter {
      * @param screenKey screen key
      */
     public void newRootScreen(String screenKey) {
-        executeCommand(new BackTo(null));
-        executeCommand(new Replace(screenKey));
+        executeCommand(new NewRoot(screenKey));
     }
 
     /**
@@ -82,8 +82,7 @@ public class Router extends BaseRouter {
      * @param data      initialisation parameters for the root
      */
     public void newRootScreen(String screenKey, Object... data) {
-        executeCommand(new BackTo(null));
-        executeCommand(new Replace(screenKey, data));
+        executeCommand(new NewRoot(screenKey, data));
     }
 
     /**

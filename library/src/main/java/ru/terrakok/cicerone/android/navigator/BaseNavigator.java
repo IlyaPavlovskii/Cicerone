@@ -8,6 +8,7 @@ import ru.terrakok.cicerone.commands.Back;
 import ru.terrakok.cicerone.commands.BackTo;
 import ru.terrakok.cicerone.commands.Command;
 import ru.terrakok.cicerone.commands.Forward;
+import ru.terrakok.cicerone.commands.NewRoot;
 import ru.terrakok.cicerone.commands.Replace;
 import ru.terrakok.cicerone.commands.SystemMessage;
 
@@ -49,7 +50,9 @@ public abstract class BaseNavigator implements Navigator {
     //======================================================
     @Override
     public void applyCommand(Command command) {
-        if (command instanceof Forward) {
+        if( command instanceof NewRoot ){
+            newRoot( (NewRoot)command );
+        } else if (command instanceof Forward) {
             forward((Forward) command);
         } else if (command instanceof Replace) {
             replace((Replace) command);
@@ -84,6 +87,8 @@ public abstract class BaseNavigator implements Navigator {
     protected abstract void replace(@NonNull Replace command);
 
     protected abstract void forward(@NonNull Forward command);
+
+    protected abstract void newRoot(NewRoot command);
 
 }
 

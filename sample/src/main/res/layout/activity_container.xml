@@ -15,4 +15,21 @@
         android:text="Forward sample with params"
         android:onClick="onSampleParamsClick"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forward container"
+        android:onClick="onForwardContainerClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New root"
+        android:onClick="onNewRootClick"/>
+
+    <TextView
+        android:id="@+id/vTvIndex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

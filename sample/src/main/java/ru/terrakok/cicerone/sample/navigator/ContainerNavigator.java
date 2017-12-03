@@ -9,6 +9,7 @@ import ru.terrakok.cicerone.android.container.IActivityContainer;
 import ru.terrakok.cicerone.android.container.IFragmentContainer;
 import ru.terrakok.cicerone.android.navigator.ActivityNavigatorImpl;
 import ru.terrakok.cicerone.sample.Constants;
+import ru.terrakok.cicerone.sample.container.ContainerActivity;
 import ru.terrakok.cicerone.sample.container.SampleContainerActivity;
 
 /**
@@ -34,8 +35,10 @@ public class ContainerNavigator extends ActivityNavigatorImpl {
     protected IActivityContainer getActivityContainer(String commandKey, Object... transitionData) {
 
         switch (commandKey){
-            case Constants.ActivityKeys.SAMPLE_ACTIVITY:
+            case Constants.ActivityKeys.SAMPLE:
                 return buildSampleContainerWithParams(transitionData);
+            case Constants.ActivityKeys.CONTAINER:
+                return ActivityContainerImpl.create(getActivity(), ContainerActivity.class);
         }
         return null;
     }
