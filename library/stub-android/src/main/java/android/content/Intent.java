@@ -322,4 +322,6 @@ public class Intent {
     public Intent setFlags(int flags) {
         throw new RuntimeException("Stub!");
     }
+
+    public void addFlags(int flagActivitySingleTop) {}
 }

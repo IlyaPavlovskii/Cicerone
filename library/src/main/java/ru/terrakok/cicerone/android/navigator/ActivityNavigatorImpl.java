@@ -219,7 +219,6 @@ public abstract class ActivityNavigatorImpl
                     }
                 } else {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-
                         mActivity.startActivity( container.getIntent(), container.getBundle());
                     } else {
                         mActivity.startActivity( container.getIntent());
@@ -262,13 +261,14 @@ public abstract class ActivityNavigatorImpl
 
 
 
-    private void backToActivity(BackTo command) {
+    protected void backToActivity(BackTo command) {
         if(getActivity()!= null) {
             IActivityContainer container = getActivityContainer( command.getScreenKey(), command.getTransitionData());
             if( container != null  ){
                 Intent intent = container.getIntent();
                 intent.setAction("backToFrom:"+getActivity().getLocalClassName());
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 getActivity().startActivity(intent);
                 getActivity().finish();
             }
