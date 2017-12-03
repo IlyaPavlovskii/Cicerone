@@ -1,7 +1,8 @@
 package ru.terrakok.cicerone.sample.container;
 
+import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import ru.terrakok.cicerone.Navigator;
+import ru.terrakok.cicerone.android.AppNavigator;
+import ru.terrakok.cicerone.android.container.ActivityContainerImpl;
 import ru.terrakok.cicerone.sample.Constants;
 import ru.terrakok.cicerone.sample.R;
 import ru.terrakok.cicerone.sample.SampleApplication;
@@ -50,16 +53,28 @@ public class ContainerActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_container);
+        setContentView(R.layout.activity_container_sample);
         ((TextView)findViewById(R.id.vTvIndex)).setText("Index: " + (++sIndex));
         Log.d(TAG, "onCreate: " + sIndex);
     }
 
     @Override
+    public void finish() {
+        super.finish();
+        Log.d(TAG, "finish: " + sIndex);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.d(TAG, "onBackPressed: " + sIndex);
+    }
+
+    @Override
     protected void onDestroy() {
-        Log.d(TAG, "onDestroy: " + sIndex);
-        --sIndex;
         super.onDestroy();
+        Log.d(TAG, "onStop: " + sIndex);
+        --sIndex;
     }
 
     public void onSampleClick(View view) {

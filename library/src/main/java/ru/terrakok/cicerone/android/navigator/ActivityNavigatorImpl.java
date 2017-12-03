@@ -149,13 +149,11 @@ public abstract class ActivityNavigatorImpl
         }
     }
 
-
-
     @Override
-    protected void newRoot(NewRoot command) {
+    protected void newRoot(@NonNull NewRoot command) {
         if (command.getScreenKey().contains(Constants.FragmentKeys.PREFIX)) {
             backToRootFragment();
-            forwardFragment( command );
+            replaceFragment( command );
         } else if( command.getScreenKey().contains(Constants.ActivityKeys.PREFIX)) {
             newRootActivity( command );
         }
@@ -262,7 +260,7 @@ public abstract class ActivityNavigatorImpl
     }
 
     protected void backToRootFragment() {
-        if( mActivity != null ){
+        if( mActivity != null ) {
             FragmentManager fragmentManager = mActivity.getFragmentManager();
             final int count = fragmentManager.getBackStackEntryCount();
             for (int i = 0; i < count; i++) {
@@ -292,7 +290,6 @@ public abstract class ActivityNavigatorImpl
                 Intent intent = container.getIntent();
                 intent.setAction("newRootActivity:"+getActivity().getLocalClassName());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 getActivity().finish();
                 getActivity().startActivity(intent);
             }

@@ -60,17 +60,17 @@ public class ProfileActivity extends AppCompatActivity {
 
     private Navigator navigator = new SupportAppNavigator(this, R.id.container) {
         @Override
-        protected Intent createActivityIntent(String screenKey, Object data) {
+        protected Intent createActivityIntent(String screenKey, Object... data) {
             return null;
         }
 
         @Override
-        protected Fragment createFragment(String screenKey, Object data) {
+        protected Fragment createFragment(String screenKey, Object... data) {
             switch (screenKey) {
                 case Screens.PROFILE_SCREEN:
                     return new ProfileFragment();
                 case Screens.SELECT_PHOTO_SCREEN:
-                    return SelectPhotoFragment.getNewInstance((int) data);
+                    return SelectPhotoFragment.getNewInstance((int) data[0]);
             }
             return null;
         }

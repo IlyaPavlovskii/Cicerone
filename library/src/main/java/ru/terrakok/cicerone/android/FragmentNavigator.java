@@ -9,6 +9,7 @@ import ru.terrakok.cicerone.commands.Back;
 import ru.terrakok.cicerone.commands.BackTo;
 import ru.terrakok.cicerone.commands.Command;
 import ru.terrakok.cicerone.commands.Forward;
+import ru.terrakok.cicerone.commands.NewRoot;
 import ru.terrakok.cicerone.commands.Replace;
 import ru.terrakok.cicerone.commands.SystemMessage;
 
@@ -60,6 +61,11 @@ public abstract class FragmentNavigator implements Navigator {
 
     @Override
     public void applyCommand(Command command) {
+        if( command instanceof NewRoot){
+            applyCommand(new BackTo(null));
+            applyCommand(new Replace(((NewRoot) command).getScreenKey(), ((NewRoot) command).getTransitionData()));
+            return;
+        }
         if (command instanceof Forward) {
             Forward forward = (Forward) command;
             Fragment fragment = createFragment(forward.getScreenKey(), forward.getTransitionData());

@@ -88,7 +88,7 @@ public abstract class BaseNavigator implements Navigator {
 
     protected abstract void forward(@NonNull Forward command);
 
-    protected abstract void newRoot(NewRoot command);
+    protected abstract void newRoot(@NonNull NewRoot command);
 
 }
 

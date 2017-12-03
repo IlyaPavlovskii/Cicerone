@@ -17,6 +17,7 @@ import ru.terrakok.cicerone.android.container.IActivityContainer;
 import ru.terrakok.cicerone.android.container.ISupportFragmentContainer;
 import ru.terrakok.cicerone.commands.BackTo;
 import ru.terrakok.cicerone.commands.Forward;
+import ru.terrakok.cicerone.commands.NewRoot;
 import ru.terrakok.cicerone.commands.Replace;
 import ru.terrakok.cicerone.commands.SystemMessage;
 
@@ -127,7 +128,7 @@ public abstract class FragmentActivityNavigatorImpl
             String key = command.getScreenKey();
 
             if (key == null) {
-                backToRoot();
+                backToRootFragment();
             } else if( key.contains( Constants.FragmentKeys.PREFIX ) ){
                 boolean hasScreen = false;
                 for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
@@ -138,7 +139,7 @@ public abstract class FragmentActivityNavigatorImpl
                     }
                 }
                 if (!hasScreen) {
-                    backToRoot();
+                    backToRootFragment();
                 }
             } else if( key.contains( Constants.ActivityKeys.PREFIX ) ){
                 backToActivity(command);
@@ -154,6 +155,16 @@ public abstract class FragmentActivityNavigatorImpl
             } else if( command.getScreenKey().contains(Constants.ActivityKeys.PREFIX)){
                 forwardActivity(command);
             }
+        }
+    }
+
+    @Override
+    protected void newRoot(@NonNull NewRoot command) {
+        if (command.getScreenKey().contains(Constants.FragmentKeys.PREFIX)) {
+            backToRootFragment();
+            replaceFragment( command );
+        } else if( command.getScreenKey().contains(Constants.ActivityKeys.PREFIX)) {
+            newRootActivity( command );
         }
     }
 
@@ -258,7 +269,7 @@ public abstract class FragmentActivityNavigatorImpl
         }
     }
 
-    protected void backToRoot() {
+    protected void backToRootFragment() {
         if( mActivity != null ){
             FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
             final int count = fragmentManager.getBackStackEntryCount();
@@ -283,5 +294,17 @@ public abstract class FragmentActivityNavigatorImpl
         }
     }
 
+    protected void newRootActivity(NewRoot command){
+        if(getActivity()!= null) {
+            IActivityContainer container = getActivityContainer( command.getScreenKey(), command.getTransitionData());
+            if( container != null  ){
+                Intent intent = container.getIntent();
+                intent.setAction("newRootActivity:"+getActivity().getLocalClassName());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                getActivity().finish();
+                getActivity().startActivity(intent);
+            }
+        }
+    }
 }
 

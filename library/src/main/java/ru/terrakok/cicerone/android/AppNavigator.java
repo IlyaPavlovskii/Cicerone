@@ -9,6 +9,7 @@ import android.widget.Toast;
 import ru.terrakok.cicerone.commands.BackTo;
 import ru.terrakok.cicerone.commands.Command;
 import ru.terrakok.cicerone.commands.Forward;
+import ru.terrakok.cicerone.commands.NewRoot;
 import ru.terrakok.cicerone.commands.Replace;
 
 /**
@@ -48,6 +49,11 @@ public abstract class AppNavigator extends FragmentNavigator {
 
     @Override
     public void applyCommand(Command command) {
+        if( command instanceof NewRoot){
+            applyCommand(new BackTo(null));
+            applyCommand(new Replace(((NewRoot) command).getScreenKey(), ((NewRoot) command).getTransitionData()));
+            return;
+        }
         if (command instanceof Forward) {
             Forward forward = (Forward) command;
             Intent activityIntent = createActivityIntent(forward.getScreenKey(), forward.getTransitionData());

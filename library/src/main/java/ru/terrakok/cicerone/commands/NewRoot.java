@@ -12,7 +12,7 @@ package ru.terrakok.cicerone.commands;
  * Navigate to new root activity<br>
  * ===================================================================================<br>
  */
-public class NewRoot extends Forward {
+public class NewRoot extends Replace {
 
     /**
      * Creates a {@link Forward} navigation command.

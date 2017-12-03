@@ -14,4 +14,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="PARAMS"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forward"
+        android:onClick="onForwardClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New chain"
+        android:onClick="onNewChainClick"/>
+
 </LinearLayout>

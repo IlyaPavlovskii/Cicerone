@@ -94,6 +94,7 @@ public class Router extends BaseRouter {
     public void newScreenChain(String screenKey) {
         executeCommand(new BackTo(null));
         executeCommand(new Forward(screenKey));
+//        executeCommand(new NewChain(screenKey));
     }
 
     /**

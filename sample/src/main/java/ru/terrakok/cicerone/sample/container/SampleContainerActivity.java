@@ -3,6 +3,7 @@ package ru.terrakok.cicerone.sample.container;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import javax.inject.Inject;
@@ -53,5 +54,13 @@ public class SampleContainerActivity extends BaseActivity {
     @Override
     protected Navigator initNavigator() {
         return mContainerNavigator;
+    }
+
+    public void onForwardClick(View view) {
+        mRouter.navigateTo(Constants.ActivityKeys.SAMPLE);
+    }
+
+    public void onNewChainClick(View view) {
+        mRouter.newScreenChain(Constants.ActivityKeys.CONTAINER);
     }
 }
