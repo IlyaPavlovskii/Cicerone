@@ -24,5 +24,6 @@
         <activity android:name=".container.ContainerActivity"/>
         <activity android:name=".container.SampleContainerActivity"/>
 
+        <activity android:name=".ui.animations.ProfileActivity"/>
     </application>
 </manifest>

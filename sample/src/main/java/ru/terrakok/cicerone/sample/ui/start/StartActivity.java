@@ -26,6 +26,7 @@ import ru.terrakok.cicerone.sample.SampleApplication;
 import ru.terrakok.cicerone.sample.Screens;
 import ru.terrakok.cicerone.sample.mvp.start.StartActivityPresenter;
 import ru.terrakok.cicerone.sample.mvp.start.StartActivityView;
+import ru.terrakok.cicerone.sample.ui.animations.ProfileActivity;
 import ru.terrakok.cicerone.sample.ui.bottom.BottomNavigationActivity;
 import ru.terrakok.cicerone.sample.ui.main.MainActivity;
 
@@ -75,6 +76,12 @@ public class StartActivity extends MvpAppCompatActivity implements StartActivity
                 presenter.onContainerPressed();
             }
         });
+        findViewById(R.id.result_and_anim_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onResultWithAnimationPressed();
+            }
+        });
     }
 
     @Override
@@ -94,6 +101,7 @@ public class StartActivity extends MvpAppCompatActivity implements StartActivity
         presenter.onBackPressed();
     }
 
+    //Sample fully custom navigator:
     private Navigator navigator = new Navigator() {
         @Override
         public void applyCommand(Command command) {
@@ -123,6 +131,9 @@ public class StartActivity extends MvpAppCompatActivity implements StartActivity
                     break;
                 case Screens.CONTAINER_ACTIVITY_SCREEN:
                     startActivity(new Intent(StartActivity.this, ContainerActivity.class));
+                    break;
+                case Screens.PROFILE_SCREEN:
+                    startActivity(new Intent(StartActivity.this, ProfileActivity.class));
                     break;
                 default:
                     Log.e("Cicerone", "Unknown screen: " + command.getScreenKey());
